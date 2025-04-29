@@ -1,0 +1,77 @@
+name: PurseStringsGUI-Build
+
+on:
+  workflow_dispatch:
+      
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  PUBLISH_DIR: ${{ github.workspace }}/publish
+
+jobs:
+
+  build-solution-and-upload-artefacts:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16.x'
+
+    - name: Install dependencies
+      run: |
+        cd ./PurseStrings.FrontEnd.Angular
+        npm install
+
+    - name: Build Angular app
+      run: |
+        cd ./PurseStrings.FrontEnd.Angular
+        npm run build -- --configuration development
+      env:
+        CI: true
+
+    - name: Publish Angular app
+      run: |
+        mkdir -p ${{ env.PUBLISH_DIR }}
+        cp -r ./PurseStrings.FrontEnd.Angular/dist/* ${{ env.PUBLISH_DIR }}
+
+    # Upload artifact to GitHub Workflow
+    - name: Upload to GitHub Workflow
+      uses: actions/upload-artifact@v4
+      with:
+        name: PurseStringsGUI-Build
+        path: ${{ env.PUBLISH_DIR }}
+
+  upload-to-azure:
+    runs-on: ubuntu-latest
+  
+    needs: build-solution-and-upload-artefacts
+    
+    steps:
+    - name: Download build artifacts from previous job
+      uses: actions/download-artifact@v4
+      with:
+        name: PurseStringsGUI-Build
+        path: ${{ env.PUBLISH_DIR }}
+
+    - name: Azure login
+      uses: azure/login@v2
+      with:
+        client-id: ${{ secrets.PS_APP_AZURE_CLIENT_ID }}
+        tenant-id: ${{ secrets.PS_APP_AZURE_TENANT_ID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+    # Upload artifact to Azure Blob Storage using Azure CLI
+    - name: Upload to Azure Blob Storage
+      run: |
+        az storage blob upload-batch \
+          --account-name ${{ secrets.PS_STORAGE_ACCOUNT_NAME }} \
+          --destination ${{ secrets.PS_STORAGE_BUILD_CONTAINER }} \
+          --source "${{ env.PUBLISH_DIR }}" \
+          --pattern '*' \
+          --auth-mode login

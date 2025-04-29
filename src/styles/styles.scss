@@ -1,0 +1,12 @@
+// Import variables and theme
+@use './variables';
+@use './theme';
+@use './components';
+@use './layout';
+
+// Include global styles
+body {
+  font-family: Roboto, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}

@@ -1,0 +1,28 @@
+@use '@angular/material' as mat;
+@use 'src/styles/_variables' as variables;
+
+// Component-specific styles
+.material-symbols-sharp {
+  font-family: 'Material Symbols Sharp';
+  font-weight: normal;
+  font-size: 24px;
+  color: black;
+  font-variation-settings: 'FILL' 1;
+}
+
+.button-primary {
+  font-weight: bold;
+  background-color: mat.get-color-from-palette(variables.$primary-palette, 500) !important;
+  color: white !important;
+  margin-top: 10px;
+  border-radius: 6px;
+  font-size: 16px;
+  min-height: 40px;
+  min-width: 120px;
+  border: none;
+}
+
+.button-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

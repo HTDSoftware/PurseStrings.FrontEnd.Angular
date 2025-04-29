@@ -1,0 +1,9 @@
+// Define color palettes and variables
+@use '@angular/material' as mat;
+
+$primary-palette: mat.define-palette(( 50: #e0f3fb, 100: #b3e1f5, 200: #80cfef, 300: #4dbde9, 400: #27addd, 500: #3fa9d9, 600: #3496c3, 700: #2a83ad, 800: #206f97, 900: #14567d, contrast: (500: #ffffff) ));
+
+$accent-palette: mat.define-palette(( 50: #fff4e4, 100: #ffe0b3, 200: #fecd82, 300: #fcb850, 400: #f4b84b, 500: #ffa100, 600: #ff8f00, 700: #ff7d00, 800: #ff6b00, 900: #ff5300, contrast: (50: black, 100: black, 200: black, 300: black, 400: black, 500: white, 600: white, 700: white, 800: white, 900: white) ));
+
+$warn-palette: mat.define-palette(( 50: #fde5e5, 100: #fbbaba, 200: #f78e8e, 300: #f36262, 400: #e96562, 500: #e04646, 600: #d84040, 700: #d03a3a, 800: #c83333, 900: #c02727, contrast: (50: black, 100: black, 200: black, 300: black, 400: black, 500: white, 600: white, 700: white, 800: white, 900: white) ));
+

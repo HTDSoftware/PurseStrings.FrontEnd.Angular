@@ -1,0 +1,23 @@
+<h2 mat-dialog-title>Upload CSV File</h2>
+<mat-dialog-content>
+  <form [formGroup]="uploadForm" (ngSubmit)="handleSubmit($event)" class="bordered-form">
+    <div class="form-group">
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Choose a CSV File</mat-label>
+        <input type="file" id="custom-file" accept=".csv" (change)="handleFileSelect($event)" hidden #fileInput />
+        <input matInput [value]="selectedFile ? selectedFile.name : ''" placeholder="No file chosen" readonly (click)="fileInput.click()" />
+        <button mat-icon-button matSuffix class="action-icon" (click)="fileInput.click()" matTooltip="Navigate to Upload File">
+          <mat-icon>attach_file</mat-icon>
+        </button>
+      </mat-form-field>
+      <p *ngIf="!selectedFile" class="info-text">Please navigate to the folder where your CSV file is located.</p>
+      <p *ngIf="lineCount" class="event-count">Events in File: {{ lineCount }}</p>
+      <p *ngIf="errorMessage" class="text-danger">{{ errorMessage }}</p>
+    </div>
+    <section class="button-container">
+      <button mat-raised-button color="primary" [disabled]="!uploadForm.get('file')?.value" (click)="setAction('load')">Load File</button>
+      <button mat-raised-button color="warn" (click)="setAction('cancel')">Cancel</button>
+    </section>
+    <input type="hidden" name="action" [value]="action">
+  </form>
+</mat-dialog-content>

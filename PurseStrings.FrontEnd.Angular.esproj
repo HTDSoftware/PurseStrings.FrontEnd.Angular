@@ -1,0 +1,89 @@
+<Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/0.5.83-alpha">
+  <PropertyGroup>
+    <StartupCommand>npm start</StartupCommand>
+    <JavaScriptTestFramework>Jasmine</JavaScriptTestFramework>
+    <!-- Command to run on project build -->
+    <BuildCommand>npm run build</BuildCommand>
+    <!-- Command to create an optimized build of the project that's ready for publishing -->
+    <ProductionBuildCommand>npm run build</ProductionBuildCommand>
+    <!-- Folder where production build objects will be placed -->
+    <BuildOutputFolder>$(MSBuildProjectDirectory)\dist</BuildOutputFolder>
+    <BaseOutputPath>$(SolutionDir)bin\</BaseOutputPath>
+    <OutputPath>$(BaseOutputPath)$(Configuration)\</OutputPath>
+    <IsPublishable>false</IsPublishable>
+    <StartupCommandWorkingDirectory>
+    </StartupCommandWorkingDirectory>
+  </PropertyGroup>
+  <ItemGroup>
+    <TypeScriptConfiguration Remove="e2eTestUtils\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="e2eTestUtils\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="e2eTestUtils\src\TestUtils.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="e2eTestUtils\src\NodeCacheTestUtils.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="e2eTestUtils\src\MsidUser.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="e2eTestUtils\src\MsidLab.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="e2eTestUtils\src\MsidApp.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="e2eTestUtils\src\LabConfig.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="e2eTestUtils\src\LabClient.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="e2eTestUtils\src\LabApiQueryParams.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="e2eTestUtils\src\KeyVaultUtils.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="e2eTestUtils\src\index.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="e2eTestUtils\src\ElectronPlaywrightTestUtils.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="e2eTestUtils\src\Constants.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="e2eTestUtils\src\CertificateUtils.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="e2eTestUtils\src\BrowserCacheTestUtils.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="e2eTestUtils\package.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="e2eTestUtils\jest-puppeteer-utils\serverUtils.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="e2eTestUtils\jest-puppeteer-utils\puppeteer_environment.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="e2eTestUtils\jest-puppeteer-utils\jestTeardown.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="e2eTestUtils\jest-puppeteer-utils\jestSetup.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="e2eTestUtils\jest-puppeteer-utils\jest-preset.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="e2eTestUtils\jest-puppeteer-utils\jest-preset-no-setup.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include=".vscode\launch.json" />
+  </ItemGroup>
+</Project>

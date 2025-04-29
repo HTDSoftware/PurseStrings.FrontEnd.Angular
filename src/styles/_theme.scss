@@ -1,0 +1,8 @@
+@use '@angular/material' as mat;
+@use './variables' as *;
+
+// Define the Angular Material theme
+$custom-theme: mat.define-light-theme(( color: ( primary: $primary-palette, accent: $accent-palette, warn: $warn-palette, ), typography: mat.define-typography-config() ));
+
+// Apply the theme globally
+@include mat.all-component-themes($custom-theme);

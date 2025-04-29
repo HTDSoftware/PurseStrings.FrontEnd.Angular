@@ -1,0 +1,23 @@
+<ng-container *ngIf="loading; else content">
+  <p>Loading...</p>
+</ng-container>
+
+<ng-template #content>
+  <div *ngIf="currentLineData && itemOptionsArray.length > 0">
+    <app-transaction [lineData]="currentLineData"
+                     [itemOptionsArray]="itemOptionsArray"
+                     [currentIndex]="currentLineIndex"
+                     [totalItems]="allLinesNoHeader.length"
+                     [allTransactionsCategorized]="allTransactionsCategorized()"
+                     [anyTransactionsCategorized]="anyTransactionsCategorized()"
+                     (save)="handleSave($event)"
+                     (prevUncat)="handlePrevUncat($event)"
+                     (previous)="handlePrevious($event)"
+                     (next)="handleNext($event)"
+                     (nextUncat)="handleNextUncat($event)">
+    </app-transaction>
+  </div>
+  <div *ngIf="!currentLineData">
+    <p>No more lines to process.</p>
+  </div>
+</ng-template>

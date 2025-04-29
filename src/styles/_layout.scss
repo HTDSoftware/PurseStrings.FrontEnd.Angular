@@ -1,0 +1,25 @@
+// Layout-specific styles
+.top-navbar {
+  display: flex;
+  justify-content: space-between;
+  height: 80px !important;
+  position: fixed;
+  z-index: 1000;
+}
+
+.main-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: auto;
+  z-index: 1;
+  margin: auto;
+  height: calc(100vh - 56px);
+  width: 100vw;
+  padding-top: 56px;
+  overflow: hidden;
+}
+

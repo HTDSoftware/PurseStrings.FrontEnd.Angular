@@ -1,0 +1,54 @@
+<h2 mat-dialog-title class="dialog-title">Transaction Details</h2>
+<mat-dialog-content>
+  <form (ngSubmit)="handleSave($event)" class="bordered-form">
+    <div class="form-group full-width">
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Account</mat-label>
+        <input matInput disabled [value]="lineData.account" />
+      </mat-form-field>
+    </div>
+    <div class="form-group full-width">
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Date</mat-label>
+        <input matInput disabled type="date" [value]="lineData.eventDate.toISOString().split('T')[0]" />
+      </mat-form-field>
+    </div>
+    <div class="form-group full-width">
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Description</mat-label>
+        <textarea matInput disabled [value]="lineData.description" class="event-description"></textarea>
+      </mat-form-field>
+    </div>
+    <div class="form-group full-width">
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Amount</mat-label>
+        <input matInput disabled [value]="formatAmount(lineData.amount <= 0 ? lineData.amount * -1 : lineData.amount)" />
+      </mat-form-field>
+    </div>
+    <div class="form-group full-width">
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label class="selection-label">{{ instructions }}</mat-label>
+        <mat-select [(value)]="chosenCategory" (selectionChange)="onCategoryChange($event)">
+          <mat-option *ngFor="let option of itemOptionsArray" [value]="option">
+            {{ option }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <section class="button-container">
+      <button mat-raised-button class="button-accent" (click)="handlePrevUncat($event)" [disabled]="currentIndex === 1" matTooltip="Previous Uncategorized"> << </button>
+      <button mat-raised-button class="button-accent" (click)="handlePrevious($event)" [disabled]="currentIndex === 1" matTooltip="Previous"> < </button>
+
+      <span class="counter">{{ currentIndex }}/{{ totalItems }}</span>
+
+      <button mat-raised-button class="button-primary" (click)="handleNext($event)" [disabled]="currentIndex === totalItems" matTooltip="Next"> > </button>
+      <button mat-raised-button class="button-primary" (click)="handleNextUncat($event)" [disabled]="currentIndex === totalItems" matTooltip="Next Uncategorized"> >> </button>
+    </section>
+
+    <section class="button-container">
+      <button mat-raised-button class="button-primary" (click)="setAction('save')" [disabled]="!allTransactionsCategorized">Save All</button>
+      <button mat-raised-button class="button-warn" (click)="setAction('cancel')">Cancel</button>
+    </section>
+  </form>
+</mat-dialog-content>

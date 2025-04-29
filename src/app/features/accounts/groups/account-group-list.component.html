@@ -1,0 +1,75 @@
+<ng-container *ngIf="loading; else content">
+  <video autoplay loop muted playsinline>
+    <source src="assets/mp4s/Online banking.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
+</ng-container>
+
+<ng-template #content>
+  <mat-table [dataSource]="dataSource" class="styled-table">
+    <ng-container matColumnDef="bank">
+      <mat-header-cell *matHeaderCellDef>Bank</mat-header-cell>
+      <mat-cell *matCellDef="let account">{{ account.BankName }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="account">
+      <mat-header-cell *matHeaderCellDef>Account</mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <ng-container *ngIf="row.type === 'subtotal' || row.type === 'total'; else accountName">
+          <span class="highlighted-label">{{ row.label }}</span>
+        </ng-container>
+        <ng-template #accountName>{{ row.AccountName }}</ng-template>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="calculatedBalance">
+      <mat-header-cell *matHeaderCellDef>Calculated Balance</mat-header-cell>
+      <mat-cell *matCellDef="let account">
+        <span [ngClass]="{ positive: account.CalculatedBalance > 0, negative: account.CalculatedBalance < 0 }">
+          {{ formatValue(account.CalculatedBalance) }}
+        </span>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="onlineBankingBalance">
+      <mat-header-cell *matHeaderCellDef>Online Balance</mat-header-cell>
+      <mat-cell *matCellDef="let account">
+        <span [ngClass]="{ positive: account.OnlineBankingBalance > 0, negative: account.OnlineBankingBalance < 0 }">
+          {{ formatValue(account.OnlineBankingBalance) }}
+        </span>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="availableBalance">
+      <mat-header-cell *matHeaderCellDef>Available Balance</mat-header-cell>
+      <mat-cell *matCellDef="let account">
+        <span [ngClass]="{ positive: account.OnlineBankingAvailableBalance > 0, negative: account.OnlineBankingAvailableBalance < 0 }">
+          {{ formatValue(account.OnlineBankingAvailableBalance) }}
+        </span>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="lastEvent">
+      <mat-header-cell *matHeaderCellDef>Last Event</mat-header-cell>
+      <mat-cell *matCellDef="let account">{{ formatDate(account.LastEventDate) }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+      <mat-cell *matCellDef="let account">
+        <button mat-icon-button (click)="downloadOnlineEvents(account)" matTooltip="Download Online Events">
+          <span class="material-symbols-sharp">cloud_download</span>
+        </button>
+        <button mat-icon-button (click)="viewAccountEvents(account)" matTooltip="View Account Events">
+          <span class="material-symbols-sharp">visibility</span>
+        </button>
+        <button mat-icon-button (click)="loadAccountEvents(account)" matTooltip="Load Online Events">
+          <span class="material-symbols-sharp">file_upload</span>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </mat-table>
+</ng-template>

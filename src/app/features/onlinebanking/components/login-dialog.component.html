@@ -1,0 +1,17 @@
+<h1 mat-dialog-title class="dialog-title">{{ bankname }} Login</h1>
+<div mat-dialog-content>
+  <mat-form-field class="form-field">
+    <input matInput placeholder="Username" [(ngModel)]="username" readonly>
+  </mat-form-field>
+  <br>
+  <mat-form-field class="form-field">
+    <input cdkFocusInitial [type]="hidePassword ? 'password' : 'text'" matInput placeholder="Password" [(ngModel)]="password">
+    <button mat-icon-button matSuffix (click)="togglePasswordVisibility()" aria-label="Toggle password visibility">
+      <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+    </button>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions class="dialog-actions">
+  <button mat-raised-button color="warn" (click)="close()">Cancel</button>
+  <button mat-raised-button color="primary" (click)="submit()">Submit</button>
+</div>
